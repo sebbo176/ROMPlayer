@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -47,7 +47,8 @@
 		94C6CC2D1F840CFE0043BA5E /* ViewController+DisplayAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6CC2C1F840CFD0043BA5E /* ViewController+DisplayAlert.swift */; };
 		94C6CC2F1F840FD20043BA5E /* TopUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6CC2E1F840FD20043BA5E /* TopUIButton.swift */; };
 		94DC03591F9D634C006AFBDE /* PopUpMIDIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DC03581F9D634B006AFBDE /* PopUpMIDIController.swift */; };
-		FE4B78EE39743C936BAD76C7 /* Pods_RomPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A946B29C7D8610B622125CC /* Pods_RomPlayer.framework */; };
+		D082BD5426B4A20E0049CB19 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = D082BD5326B4A20E0049CB19 /* AudioKit */; };
+		D082BD5726B4A22E0049CB19 /* AudioKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = D082BD5626B4A22E0049CB19 /* AudioKitUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -64,10 +65,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		276D6F7BFAB5DF7878B49086 /* Pods-RomPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RomPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RomPlayer/Pods-RomPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		34F48898205D76C600486A05 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../AudioKit/Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		34F48899205D76C600486A05 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../AudioKit/Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
-		4A946B29C7D8610B622125CC /* Pods_RomPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RomPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		940FC29C1FDCD5CB00131899 /* PingPongDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingPongDelay.swift; sourceTree = "<group>"; };
 		942AE97B20D0691700D1F523 /* UILabel+Rotate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Rotate.swift"; sourceTree = "<group>"; };
 		9430178E1F23DE4600A302B2 /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
@@ -111,7 +110,6 @@
 		94C6CC2C1F840CFD0043BA5E /* ViewController+DisplayAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+DisplayAlert.swift"; sourceTree = "<group>"; };
 		94C6CC2E1F840FD20043BA5E /* TopUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TopUIButton.swift; path = RomPlayer/Controls/Buttons/TopUIButton.swift; sourceTree = "<group>"; };
 		94DC03581F9D634B006AFBDE /* PopUpMIDIController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpMIDIController.swift; sourceTree = "<group>"; };
-		D28328B68AEEE385E54024B3 /* Pods-RomPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RomPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-RomPlayer/Pods-RomPlayer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,22 +117,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE4B78EE39743C936BAD76C7 /* Pods_RomPlayer.framework in Frameworks */,
+				D082BD5726B4A22E0049CB19 /* AudioKitUI in Frameworks */,
+				D082BD5426B4A20E0049CB19 /* AudioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		17985B0216612BF2A4DBCA29 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				276D6F7BFAB5DF7878B49086 /* Pods-RomPlayer.debug.xcconfig */,
-				D28328B68AEEE385E54024B3 /* Pods-RomPlayer.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		941373651F7F239500A0B7C6 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,7 +177,6 @@
 				944156D41F2121CC00C139B9 /* RomPlayer */,
 				944156D31F2121CC00C139B9 /* Products */,
 				E637669B376BFBAC1CF46E9C /* Frameworks */,
-				17985B0216612BF2A4DBCA29 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -288,7 +277,6 @@
 			children = (
 				34F48898205D76C600486A05 /* AudioKit.framework */,
 				34F48899205D76C600486A05 /* AudioKitUI.framework */,
-				4A946B29C7D8610B622125CC /* Pods_RomPlayer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -300,7 +288,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 944156E41F2121CC00C139B9 /* Build configuration list for PBXNativeTarget "RomPlayer" */;
 			buildPhases = (
-				9F6CE64B3C80CE3BFDEFC354 /* [CP] Check Pods Manifest.lock */,
 				944156CE1F2121CC00C139B9 /* Sources */,
 				944156CF1F2121CC00C139B9 /* Frameworks */,
 				944156D01F2121CC00C139B9 /* Resources */,
@@ -311,6 +298,10 @@
 			dependencies = (
 			);
 			name = RomPlayer;
+			packageProductDependencies = (
+				D082BD5326B4A20E0049CB19 /* AudioKit */,
+				D082BD5626B4A22E0049CB19 /* AudioKitUI */,
+			);
 			productName = SynthUISpike;
 			productReference = 944156D21F2121CC00C139B9 /* RomPlayer.app */;
 			productType = "com.apple.product-type.application";
@@ -349,6 +340,10 @@
 				Base,
 			);
 			mainGroup = 944156C91F2121CC00C139B9;
+			packageReferences = (
+				D082BD5226B4A20E0049CB19 /* XCRemoteSwiftPackageReference "AudioKit" */,
+				D082BD5526B4A22E0049CB19 /* XCRemoteSwiftPackageReference "AudioKitUI" */,
+			);
 			productRefGroup = 944156D31F2121CC00C139B9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -370,27 +365,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		9F6CE64B3C80CE3BFDEFC354 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RomPlayer-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		944156CE1F2121CC00C139B9 /* Sources */ = {
@@ -558,7 +532,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -566,7 +541,6 @@
 		};
 		944156E51F2121CC00C139B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 276D6F7BFAB5DF7878B49086 /* Pods-RomPlayer.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -574,8 +548,11 @@
 				CODE_SIGN_ENTITLEMENTS = RomPlayer/RomPlayer.entitlements;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = RomPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = com.audiokitpro.romplayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -587,7 +564,6 @@
 		};
 		944156E61F2121CC00C139B9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D28328B68AEEE385E54024B3 /* Pods-RomPlayer.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -595,8 +571,11 @@
 				CODE_SIGN_ENTITLEMENTS = RomPlayer/RomPlayer.entitlements;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = RomPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = com.audiokitpro.romplayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -628,6 +607,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D082BD5226B4A20E0049CB19 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 5.2.0;
+			};
+		};
+		D082BD5526B4A22E0049CB19 /* XCRemoteSwiftPackageReference "AudioKitUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKitUI";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D082BD5326B4A20E0049CB19 /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D082BD5226B4A20E0049CB19 /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
+		};
+		D082BD5626B4A22E0049CB19 /* AudioKitUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D082BD5526B4A22E0049CB19 /* XCRemoteSwiftPackageReference "AudioKitUI" */;
+			productName = AudioKitUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 944156CA1F2121CC00C139B9 /* Project object */;
 }
