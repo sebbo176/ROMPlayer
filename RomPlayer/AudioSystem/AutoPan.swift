@@ -7,41 +7,50 @@
 //
 
 import AudioKit
+import AudioToolbox
+import SoundpipeAudioKit
+import AVFoundation
+import SporthAudioKit
 
-class AutoPan: AKNode {
-    
+class AutoPan: Node {
+
+    var connections: [Node] = []
+    var avAudioNode: AVAudioNode
+
     var freq = 0.1 {
         didSet {
-            output.parameters = [freq, mix]
+            output.parameter1 = AUValue(freq)
+            output.parameter2 = AUValue(mix)
+//            output.parameters = [freq, mix]
         }
     }
     
     var mix = 1.0 {
         didSet {
-            output.parameters = [freq, mix]
+            output.parameter1 = AUValue(freq)
+            output.parameter2 = AUValue(mix)
+//            output.parameters = [freq, mix]
         }
     }
     
-    fileprivate var output: AKOperationEffect
+    fileprivate var output: OperationEffect
     
-    init(_ input: AKNode) {
+    init(_ input: Node) {
         
-        output = AKOperationEffect(input) { input, parameters in
+        output = OperationEffect(input) { input, parameters in
         
-            let autoPanFrequency = AKOperation.parameters[0]
-            let autoPanMix = AKOperation.parameters[1]
+            let autoPanFrequency = Operation.parameters[0]
+            let autoPanMix = Operation.parameters[1]
             
             // Now all of our operation work is in this block, nicely indented, away from harm's way
-            let oscillator = AKOperation.sineWave(frequency: autoPanFrequency)
+            let oscillator = Operation.sineWave(frequency: autoPanFrequency)
            
             let panner = input.pan(oscillator * autoPanMix)
             return panner
         }
-       
-        super.init()
+        self.connections.append(output)
+        //        super.init()
         self.avAudioNode = output.avAudioNode
         //input.connect(to: output)
-        
     }
-    
 }

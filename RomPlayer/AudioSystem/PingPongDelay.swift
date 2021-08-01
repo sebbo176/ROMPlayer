@@ -7,23 +7,24 @@
 //
 
 import AudioKit
+import SoundpipeAudioKit
 
-class PingPongDelay: AKNode, AKInput {
+class PingPongDelay: Node {
     var rampDuration = 0.2
     
-    var mixer: AKDryWetMixer
-    var leftDelay = AKVariableDelay()
-    var leftDelayDelay = AKVariableDelay()
-    var leftCompensator = AKVariableDelay()
-    var leftMix = AKMixer()
+    var mixer: DryWetMixer
+    var leftDelay = VariableDelay()
+    var leftDelayDelay = VariableDelay()
+    var leftCompensator = VariableDelay()
+    var leftMix = Mixer()
     
-    var rightDelay = AKVariableDelay()
-    var delayMixer = AKMixer()
+    var rightDelay = VariableDelay()
+    var delayMixer = Mixer()
     
-    var leftPanner = AKPanner()
-    var rightPanner = AKPanner()
+    var leftPanner = Panner()
+    var rightPanner = Panner()
     
-    var finalBooster = AKBooster()
+    var finalBooster = Booster()
     
     var time = 0.0 {
         didSet {
@@ -66,7 +67,7 @@ class PingPongDelay: AKNode, AKInput {
         //        rightDelay.clear()
     }
     
-    init(_ input: AKNode) {
+    init(_ input: Node) {
         
         leftPanner.pan = -1
         rightPanner.pan = 1
@@ -77,18 +78,18 @@ class PingPongDelay: AKNode, AKInput {
         rightDelay.rampDuration = rampDuration
         finalBooster.rampDuration = rampDuration
         
-        input >>> leftDelay
-        input >>> rightDelay
-        input >>> leftCompensator
+        input > leftDelay
+        input > rightDelay
+        input > leftCompensator
         
-        leftDelay >>> leftDelayDelay
+        leftDelay > leftDelayDelay
         
-        [leftCompensator, leftDelayDelay] >>> leftMix
+        [leftCompensator, leftDelayDelay] > leftMix
         
-        leftMix >>> leftPanner
-        rightDelay >>> rightPanner
+        leftMix > leftPanner
+        rightDelay > rightPanner
         
-        [leftPanner, rightPanner] >>> delayMixer >>> finalBooster
+        [leftPanner, rightPanner] > delayMixer > finalBooster
         
         mixer = AKDryWetMixer(input, finalBooster, balance: 0.0)
         

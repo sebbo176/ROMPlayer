@@ -6,27 +6,31 @@
 //  Copyright © 2017 AudioKit Pro. All rights reserved.
 
 import AudioKit
+import AudioToolbox
+import SoundpipeAudioKit
+import AVFoundation
+import DunneAudioKit
 
 class Conductor {
     
     // Globally accessible
     static let sharedInstance = Conductor()
 
-    var sequencer: AKAppleSequencer!
-    var sampler1 = AKSampler()
-    var decimator: AKDecimator
-    var tremolo: AKTremolo
+    var sequencer: AppleSequencer!
+    var sampler1 = Sampler()
+    var decimator: Decimator
+    var tremolo: Tremolo
     var fatten: Fatten
     var filterSection: FilterSection
 
-    var autoPanMixer: AKDryWetMixer
-    var autopan: AutoPan
+    var autoPanMixer: DryWetMixer
+    var autopan: Node
 
     var multiDelay: PingPongDelay
-    var masterVolume = AKMixer()
-    var reverb: AKCostelloReverb
-    var reverbMixer: AKDryWetMixer
-    let midi = AKMIDI()
+    var masterVolume = Mixer()
+    var reverb: CostelloReverb
+    var reverbMixer: DryWetMixer
+    let midi = MIDI()
 
     init() {
         
@@ -36,43 +40,46 @@ class Conductor {
         midi.openOutput()
     
         // Session settings
-        AKAudioFile.cleanTempDirectory()
-        AKSettings.bufferLength = .medium
-        AKSettings.enableLogging = false
+//        AudioFile.cleanTempDirectory()
+        Settings.bufferLength = .medium
+        Settings.enableLogging = false
         
         // Allow audio to play while the iOS device is muted.
-        AKSettings.playbackWhileMuted = true
+//        Settings.playbackWhileMuted = true
      
         do {
-            try AKSettings.setSession(category: .playAndRecord, with: [.defaultToSpeaker, .allowBluetooth, .mixWithOthers])
+            try Settings.setSession(category: .playAndRecord, with: [.defaultToSpeaker, .allowBluetooth, .mixWithOthers])
         } catch {
-            AKLog("Could not set session category.")
+            Log("Could not set session category.")
         }
  
         // Signal Chain
-        tremolo = AKTremolo(sampler1, waveform: AKTable(.sine))
-        decimator = AKDecimator(tremolo)
+        tremolo = Tremolo(sampler1, waveform: Table(.sine))
+        decimator = Decimator(tremolo)
         filterSection = FilterSection(decimator)
         filterSection.output.stop()
 
         autopan = AutoPan(filterSection)
-        autoPanMixer = AKDryWetMixer(filterSection, autopan)
+        autoPanMixer = DryWetMixer(filterSection, autopan)
         autoPanMixer.balance = 0 
 
         fatten = Fatten(autoPanMixer)
         
         multiDelay = PingPongDelay(fatten)
         
-        masterVolume = AKMixer(multiDelay)
+        masterVolume = Mixer(multiDelay)
      
-        reverb = AKCostelloReverb(masterVolume)
+        reverb = CostelloReverb(masterVolume)
         
-        reverbMixer = AKDryWetMixer(masterVolume, reverb, balance: 0.3)
+        reverbMixer = DryWetMixer(masterVolume, reverb, balance: 0.3)
        
         // Set Output & Start AudioKit
-        AudioKit.output = reverbMixer
+//        AudioKit.output = reverbMixer
+        let engine = AudioEngine()
+        engine.output = reverbMixer
         do {
-            try AudioKit.start()
+            try engine.start()
+//            try AudioKit.start()
         } catch {
             print("AudioKit.start() failed")
         }
@@ -84,7 +91,7 @@ class Conductor {
         midiLoad("rom_poly")
     }
     
-    func addMidiListener(listener: AKMIDIListener) {
+    func addMidiListener(listener: MIDIListener) {
         midi.addListener(listener)
     }
 
@@ -97,16 +104,19 @@ class Conductor {
     }
 
     func useSound(_ sound: String) {
-        let soundsFolder = Bundle.main.bundleURL.appendingPathComponent("Sounds/sfz").path
+        let soundsFolder = Bundle.main.bundleURL.appendingPathComponent("Sounds/sfz").path.appending("\(sound).sfz")
+        soundsFolder.
         sampler1.unloadAllSamples()
-        sampler1.loadSFZ(path: soundsFolder, fileName: sound + ".sfz")
+        let url = URL(string: soundsFolder)!
+        sampler1.loadSFZ(url: url)
+//        sampler1.loadSFZ(path: soundsFolder, fileName: sound + ".sfz")
     }
     
     func midiLoad(_ midiFile: String) {
         let path = "Sounds/midi/\(midiFile)"
-        sequencer = AKAppleSequencer(filename: path)
+        sequencer = AppleSequencer(filename: path)
         sequencer.enableLooping()
-        sequencer.setGlobalMIDIOutput(midi.virtualInput)
+        sequencer.setGlobalMIDIOutput(midi.endpoints.first!.value) //TODO, fix better
         sequencer.setTempo(100)
     }
     

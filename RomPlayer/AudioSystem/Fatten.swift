@@ -7,27 +7,35 @@
 //
 
 import AudioKit
+import AudioToolbox
+import SoundpipeAudioKit
+import AVFoundation
 
-class Fatten: AKNode, AKInput {
-    var dryWetMix: AKDryWetMixer
-    var delay: AKDelay
-    var pannedDelay: AKPanner
-    var pannedSource: AKPanner
-    var wet: AKMixer
-    var inputMixer = AKMixer()
+class Fatten: Node {
+
+    var connections: [Node] = []
+    var avAudioNode: AVAudioNode
+
+    var dryWetMix: DryWetMixer
+    var delay: Delay
+    var pannedDelay: Panner
+    var pannedSource: Panner
+    var wet: Mixer
+    var inputMixer = Mixer()
 
     var inputNode: AVAudioNode {
         return inputMixer.avAudioNode
     }
     
-    init(_ input: AKNode) {
-        input.connect(to: inputMixer)
-        delay = AKDelay(inputMixer, time: 0.04, dryWetMix: 1)
-        pannedDelay = AKPanner(delay, pan: 1)
-        pannedSource = AKPanner(inputMixer, pan: -1)
-        wet = AKMixer(pannedDelay, pannedSource)
-        dryWetMix = AKDryWetMixer(inputMixer, wet, balance: 0)
-        super.init()
+    init(_ input: Node) {
+        self.connections.append(inputMixer)
+//        input.connect(to: inputMixer)
+        delay = Delay(inputMixer, time: 0.04, dryWetMix: 1)
+        pannedDelay = Panner(delay, pan: 1)
+        pannedSource = Panner(inputMixer, pan: -1)
+        wet = Mixer(pannedDelay, pannedSource)
+        dryWetMix = DryWetMixer(inputMixer, wet, balance: 0)
+//        super.init()
         self.avAudioNode = dryWetMix.avAudioNode
     }
 

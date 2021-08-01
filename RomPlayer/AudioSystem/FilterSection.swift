@@ -7,8 +7,12 @@
 //
 
 import AudioKit
+import AudioToolbox
+import SoundpipeAudioKit
+import AVFoundation
+import SporthAudioKit
 
-class FilterSection: AKNode, AKInput {
+class FilterSection: Node {
     var parameters: [Double] = [1_000, 0.9, 1_000, 1, 0]
 
     var cutoffFrequency: Double = 1_000 {
@@ -46,15 +50,15 @@ class FilterSection: AKNode, AKInput {
         }
     }
 
-    var output: AKOperationEffect
+    var output: OperationEffect
 
     var inputNode: AVAudioNode {
         return output.avAudioNode
     }
 
-    init(_ input: AKNode) {
+    init(_ input: Node) {
 
-        output = AKOperationEffect(input) { input, parameters in
+        output = OperationEffect(input) { input, parameters in
 
             let cutoff = parameters[0]
             let rez = parameters[1]
@@ -62,7 +66,7 @@ class FilterSection: AKNode, AKInput {
             let oscRate = parameters[3]
             let oscIndex = parameters[4]
 
-            let lfo = AKOperation.morphingOscillator(frequency: oscRate,
+            let lfo = Operation.morphingOscillator(frequency: oscRate,
                                                      amplitude: oscAmp,
                                                      index: oscIndex)
 
@@ -71,7 +75,7 @@ class FilterSection: AKNode, AKInput {
         }
         output.parameters = parameters
 
-        super.init()
+//        super.init()
         self.avAudioNode = output.avAudioNode
 
     }
